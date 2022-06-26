@@ -1,13 +1,46 @@
-export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+import { useState } from 'react';
 
-    function handleEmail() {
-        setEmail(event.target.value);
+export default function Login() {
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    });
+    const [loginSuccessful, setloginSuccessful] = useState(false);
+    const [loginFailed, setloginFailed] = useState(false);
+
+    async function handleSubmit(ev) {
+        ev.preventDefault();
+
+        try {
+            const response = await fetch('https://librarify.latteandfront.es/api/login_check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: form.email,
+                    password: form.password
+                })
+            });
+            if (response.ok) {
+                setloginSuccessful(true);
+                setloginFailed(false);
+            } else {
+                setloginFailed(true);
+                setloginSuccessful(false);
+            }
+        } catch (error) {
+            setloginFailed(true);
+            setloginSuccessful(false);
+        }
     }
-    function handlePassword() {
-        setPassword(event.target.value);
+    function handleForm(event) {
+        setForm((formState) => ({
+            ...formState,
+            [event.target.name]: event.target.value
+        }));
     }
+
 
     return (
         <div>
@@ -17,8 +50,9 @@ export default function Login() {
 
                     <input
                         className="form__email-input"
-                        value={email}
-                        onChange={handleEmail}
+
+                        name={form.email}
+                        onChange={handleForm}
                     />
                 </div>
                 <div className="form__password">
@@ -26,8 +60,8 @@ export default function Login() {
 
                     <input
                         className="form__password-input"
-                        value={password}
-                        onChange={handlePassword}
+                        name={form.password}
+                        onChange={handleForm}
                         type="password"
                     />
                 </div>
@@ -37,9 +71,12 @@ export default function Login() {
                     </button>
                 </div>
                 <div>
-                    <div className="form__fail-message">Oops! Login failed</div>
-
-                    <div className="form__success-message">Login successful!</div>
+                    {loginFailed && (
+                        <div className="form__fail-message">Oops! Login failed</div>
+                    )}
+                    {loginSuccessful && (
+                        <div className="form__success-message">Login successful!</div>
+                    )}
                 </div>
             </form>
         </div>
