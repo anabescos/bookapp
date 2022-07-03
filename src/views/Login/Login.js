@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {JWT_KEY} from 'consts/app';
 
 export default function Login() {
     const [form, setForm] = useState({
@@ -25,13 +26,19 @@ export default function Login() {
             if (response.ok) {
                 setloginSuccessful(true);
                 setloginFailed(false);
+                console.log("it went okay");
+                const json = await response.json();
+                localStorage.setItem(JWT_KEY, JSON.stringify(json.data));
             } else {
                 setloginFailed(true);
                 setloginSuccessful(false);
+                console.log("todo mal");
+                console.log(response);
             }
         } catch (error) {
             setloginFailed(true);
             setloginSuccessful(false);
+            console.log(error);
         }
     }
     function handleForm(event) {

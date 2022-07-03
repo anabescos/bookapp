@@ -1,0 +1,1 @@
+export const JWT_KEY = 'bookapp_credentials';
