@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {JWT_KEY} from 'consts/app';
+import LoginView from './LoginView'
 
 export default function Login() {
     const [form, setForm] = useState({
@@ -50,42 +51,12 @@ export default function Login() {
 
 
     return (
-        <div>
-            <form className="form" onSubmit={handleSubmit}>
-                <div className="form__email">
-                    <label className="form__email-label">Email</label>
-
-                    <input
-                        className="form__email-input"
-
-                        name={form.email}
-                        onChange={handleForm}
-                    />
-                </div>
-                <div className="form__password">
-                    <label className="form__password-label">Contraseña</label>
-
-                    <input
-                        className="form__password-input"
-                        name={form.password}
-                        onChange={handleForm}
-                        type="password"
-                    />
-                </div>
-                <div>
-                    <button className="form__submit" type="submit">
-                        Enviar
-                    </button>
-                </div>
-                <div>
-                    {loginFailed && (
-                        <div className="form__fail-message">Oops! Login failed</div>
-                    )}
-                    {loginSuccessful && (
-                        <div className="form__success-message">Login successful!</div>
-                    )}
-                </div>
-            </form>
-        </div>
+        <LoginView 
+        form={form}
+        onInputChanged={handleForm}
+        onSubmit={handleSubmit}
+        loginSuccessful={loginSuccessful}
+        loginFailed={loginFailed}
+        />
     );
 }
