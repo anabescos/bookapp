@@ -3,13 +3,13 @@ export default function LoginView ({ form, onInputChanged, onSubmit, loginSucces
     return (
         <div>
             <form className="form" onSubmit={onSubmit}>
+                <h2>Log in</h2>
                 <div className="form__email">
                     <label className="form__email-label">Email</label>
 
                     <input
                         className="form__email-input"
-
-                        name={form.email}
+                        name="email"
                         onChange={onInputChanged}
                     />
                 </div>
@@ -18,7 +18,7 @@ export default function LoginView ({ form, onInputChanged, onSubmit, loginSucces
 
                     <input
                         className="form__password-input"
-                        name={form.password}
+                        name="password"
                         onChange={onInputChanged}
                         type="password"
                     />
