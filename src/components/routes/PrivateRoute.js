@@ -1,3 +1,18 @@
+
+import {Navigate, Outlet} from 'react-router-dom';
+import {LOGIN} from 'config/routes/paths';
+import {useAuthContext} from 'contexts/authContext';
+
 export default function PrivateRoute() {
-    return <h1>You are logged in!</h1>;
+  const {isAuthenticated} = useAuthContext();
+
+  if (!isAuthenticated) {
+    return <Navigate to={LOGIN} />;
+  }
+
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { JWT_KEY } from 'consts/app';
+import { useAuthContext } from "contexts/authContext";
 import apiClient from "../../utils/apiClient";
 import LoginView from './LoginView'
 
@@ -10,7 +10,8 @@ export default function Login() {
     });
     const [loginSuccessful, setloginSuccessful] = useState(false);
     const [loginFailed, setloginFailed] = useState(false);
-
+    const {login} = useAuthContext();
+    
     async function handleSubmit(ev) {
         ev.preventDefault();
 
@@ -22,7 +23,7 @@ export default function Login() {
                 password: form.password
             });
 
-            localStorage.setItem(JWT_KEY, JSON.stringify(json.data));
+            login(json.data);
 
         } catch (error) {
             setloginFailed(true);

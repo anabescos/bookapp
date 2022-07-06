@@ -1,4 +1,4 @@
-export const LOGIN = '/';
+export const LOGIN = '/login';
 export const LOGOUT = '/user/logout';
 export const BOOKS = '/user/books';
 export const BOOK_ADD = '/user/add-book';
