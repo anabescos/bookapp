@@ -22,7 +22,7 @@ export function AuthContextProvider({ children }) {
         login,
         logout,
         authTokens,
-        isAuthenticated: authTokens != null
+        isAuthenticated: authTokens !== null
     }), [login, logout, authTokens]);
 
     return <AuthContext.Provider value={value}>        {children}

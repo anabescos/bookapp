@@ -4,7 +4,7 @@ import {LOGIN} from 'config/routes/paths';
 import {useAuthContext} from 'contexts/authContext';
 
 export default function PrivateRoute() {
-  const {isAuthenticated} = useAuthContext();
+  const {isAuthenticated, logout} = useAuthContext();
 
   if (!isAuthenticated) {
     return <Navigate to={LOGIN} />;
@@ -13,6 +13,7 @@ export default function PrivateRoute() {
   return (
     <div>
       <Outlet />
+      <button onClick={logout}>Log out</button>
     </div>
   );
 }
