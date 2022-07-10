@@ -24,6 +24,8 @@ export default function Login() {
             });
 
             login(json.data);
+            console.log(json);
+            console.log(json.data);
 
         } catch (error) {
             setloginFailed(true);
